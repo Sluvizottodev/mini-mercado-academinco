@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "471463861930",
+    "project_id": "mercado-superpao",
+    "storage_bucket": "mercado-superpao.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471463861930:android:d3d993e602ffbe7101fad3",
+        "android_client_info": {
+          "package_name": "com.luvizotto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBESb6RMsES_0Wl_1Ep_BQjJpbssuB4t1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471463861930:android:b3fa7d746e350ad501fad3",
+        "android_client_info": {
+          "package_name": "com.luvizotto.minimercado"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBESb6RMsES_0Wl_1Ep_BQjJpbssuB4t1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
