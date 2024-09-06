@@ -1,16 +1,45 @@
-# minimercado
+# Mini Mercado Academinco
 
-Projeto acadêmico em grupo visando o desenvolvimento básico de um app
+![Logo](link_para_logo_se_existir)
 
-## Getting Started
+Projeto acadêmico em grupo visando o desenvolvimento de um mercado digital simples, inspirado no supermercado SuperPão.
 
-This project is a starting point for a Flutter application.
+## Índice
 
-A few resources to get you started if this is your first Flutter project:
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Funcionalidades](#funcionalidades)
+- [Capturas de Tela](#capturas-de-tela)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Como Rodar o Projeto](#como-rodar-o-projeto)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Sobre o Projeto
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+O Mini Mercado Academinco é um projeto acadêmico desenvolvido para simular o funcionamento de um mercado digital. O objetivo é proporcionar uma experiência prática em desenvolvimento de aplicações web utilizando tecnologias modernas.
+
+## Funcionalidades
+
+- Cadastro e login de usuários
+- Listagem de produtos
+- Adição de produtos ao carrinho de compras
+- Finalização de compra
+
+## Capturas de Tela
+
+<!-- Adicione capturas de tela do seu projeto aqui -->
+![Tela Inicial](link_para_captura_de_tela)
+
+## Tecnologias Utilizadas
+
+- [Flutter](https://flutter.org/)
+- [Dart](https://dart.org/)
+- [Firebase](https://firebase.com/)
+
+## Como Rodar o Projeto
+
+Para rodar o projeto localmente, siga os passos abaixo:
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/Sluvizottodev/mini-mercado-academinco.git
