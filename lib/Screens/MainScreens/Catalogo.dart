@@ -5,6 +5,7 @@ import 'package:minimercado/utils/constants/colors.dart';
 import '../../utils/componentes/CustomAppBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../utils/componentes/InfAppBar.dart';
+import '../../utils/models/Products.dart';
 
 class CatalogoScreen extends StatefulWidget {
   @override
@@ -21,7 +22,9 @@ class _CatalogoScreenState extends State<CatalogoScreen> {
     {'name': 'Bebidas', 'image': 'lib/utils/images/logo_branca.png'},
     {'name': 'Higiene', 'image': 'lib/utils/images/logo_branca.png'},
   ];
+
   String nome = '';
+  List<Product> _cart = [];
 
   @override
   void initState() {
@@ -48,13 +51,29 @@ class _CatalogoScreenState extends State<CatalogoScreen> {
     return s[0].toUpperCase() + s.substring(1);
   }
 
+  void _addToCart(Product product) {
+    setState(() {
+      _cart.add(product);
+    });
+    // Redireciona para a tela do carrinho
+    Navigator.pushNamed(context, '/cart', arguments: {
+      'cart': _cart,
+      'removeFromCart': _removeFromCart,
+    });
+  }
+
+  void _removeFromCart(Product product) {
+    setState(() {
+      _cart.remove(product);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // Mostra o diálogo de confirmação ao pressionar o botão de retorno
         bool? sair = await _showExitConfirmationDialog(context);
-        return sair ?? false; // Retorna true se o usuário quiser sair
+        return sair ?? false;
       },
       child: Scaffold(
         appBar: CustomAppBar(),
@@ -142,39 +161,12 @@ class _CatalogoScreenState extends State<CatalogoScreen> {
                   ),
                   delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
-                      return Card(
-                        elevation: 4,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                color: Colors.blueGrey[100],
-                                child: Center(
-                                  child: Text(
-                                    items[index],
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // Adicione a lógica do botão aqui
-                                },
-                                child: Text('Ver Detalhes'),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
+                      final product = products[index];
+                      return ProductItem(product, _addToCart);
                     },
-                    childCount: items.length,
+                    childCount: products.length,
                   ),
                 ),
-                // Adicionando espaço na parte inferior para evitar sobreposição com o InfAppBar
                 SliverToBoxAdapter(
                   child: SizedBox(height: kToolbarHeight),
                 ),
@@ -201,11 +193,11 @@ class _CatalogoScreenState extends State<CatalogoScreen> {
           content: Text('Você deseja sair do aplicativo?'),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.of(context).pop(false), // Não sai
+              onPressed: () => Navigator.of(context).pop(false),
               child: Text('Não'),
             ),
             TextButton(
-              onPressed: () => exit(0), // Fecha o aplicativo
+              onPressed: () => exit(0),
               child: Text('Sim'),
             ),
           ],

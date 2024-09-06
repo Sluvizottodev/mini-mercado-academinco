@@ -40,7 +40,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             icon: Icon(Icons.shopping_cart, color: Colors.white, size: 25,),
             onPressed: () {
               // Navegar para a tela do carrinho de compras
-              Navigator.pushNamed(context, '/carrinhoCompras'); // Substitua pela sua rota
+              Navigator.pushNamed(context, '/cart'); // Substitua pela sua rota
             },
           ),
         ],
