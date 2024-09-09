@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: TSizes.md(context)),  // Aqui o context foi adicionado
+              SizedBox(height: TSizes.md(context)),
               if (mensagem.isNotEmpty)
                 Text(
                   mensagem,
@@ -94,70 +94,99 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Future<bool> _showExitConfirmationDialog(BuildContext context) async {
+    return (await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmar saída'),
+          content: Text('Deseja realmente sair da tela?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('Não'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text('Sim'),
+            ),
+          ],
+        );
+      },
+    )) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: TColors.backgroundLight,
-      body: SingleChildScrollView( // Torna a tela rolável
-        child: Padding(
-          padding: EdgeInsets.all(TSizes.lg(context)),  // Aqui o context foi adicionado
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TituloPadrao(titulo: 'Login', distanciaDoTopo: TSizes.xl(context)),  // Aqui o context foi adicionado
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02), // Ajuste de tamanho dinâmico
-              SizedBox(height: TSizes.xl(context)),  // Aqui o context foi adicionado
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: 'E-mail',
-                  border: OutlineInputBorder(),
+    return WillPopScope(
+      onWillPop: () async {
+        return await _showExitConfirmationDialog(context);
+      },
+      child: Scaffold(
+        backgroundColor: TColors.backgroundLight,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(TSizes.lg(context)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TituloPadrao(titulo: 'Login', distanciaDoTopo: TSizes.xl(context)),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: TSizes.xl(context)),
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    labelText: 'E-mail',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              SizedBox(height: TSizes.md(context)),  // Aqui o context foi adicionado
-              TextField(
-                controller: _senhaController,
-                decoration: InputDecoration(
-                  labelText: 'Senha',
-                  border: OutlineInputBorder(),
+                SizedBox(height: TSizes.md(context)),
+                TextField(
+                  controller: _senhaController,
+                  decoration: InputDecoration(
+                    labelText: 'Senha',
+                    border: OutlineInputBorder(),
+                  ),
+                  obscureText: true,
                 ),
-                obscureText: true,
-              ),
-              SizedBox(height: TSizes.md(context)),  // Aqui o context foi adicionado
-              if (_errorMessage.isNotEmpty)
-                Text(
-                  _errorMessage,
-                  style: TextStyle(color: Colors.red),
+                SizedBox(height: TSizes.md(context)),
+                if (_errorMessage.isNotEmpty)
+                  Text(
+                    _errorMessage,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                SizedBox(height: TSizes.sm(context)),
+                ElevatedButton(
+                  onPressed: _login,
+                  child: Text('Logar',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: TSizes.fontSizeXl(context))),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: TColors.primaryColor,
+                    padding: EdgeInsets.symmetric(vertical: TSizes.sm(context)),
+                  ),
                 ),
-              SizedBox(height: TSizes.sm(context)),  // Aqui o context foi adicionado
-              ElevatedButton(
-                onPressed: _login,
-                child: Text('Logar',
-                    style: TextStyle(
-                        color: Colors.white, fontSize: TSizes.fontSizeXl(context))),  // Aqui o context foi adicionado
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: TColors.primaryColor,
-                  padding: EdgeInsets.symmetric(vertical: TSizes.sm(context)),  // Aqui o context foi adicionado
+                SizedBox(height: TSizes.sm(context)),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/cadastro');
+                  },
+                  child: Text('Cadastrar'),
+                  style: TextButton.styleFrom(
+                    foregroundColor: TColors.secondaryColor,
+                  ),
                 ),
-              ),
-              SizedBox(height: TSizes.sm(context)),  // Aqui o context foi adicionado
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/cadastro');
-                },
-                child: Text('Cadastrar'),
-                style: TextButton.styleFrom(
-                  foregroundColor: TColors.secondaryColor,
+                TextButton(
+                  onPressed: _mostrarDialogoRedefinirSenha,
+                  child: Text('Redefinir senha'),
+                  style: TextButton.styleFrom(
+                    foregroundColor: TColors.secondaryColor,
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: _mostrarDialogoRedefinirSenha,
-                child: Text('Redefinir senha'),
-                style: TextButton.styleFrom(
-                  foregroundColor: TColors.secondaryColor,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minimercado/Screens/MainScreens/Configuracao.dart';
 import 'package:minimercado/Screens/MainScreens/Historico.dart';
-
 import '../../Screens/HomeScreens/Cadastro.dart';
 import '../../Screens/HomeScreens/Login.dart';
 import '../../Screens/MainScreens/Cart.dart';
@@ -10,19 +9,15 @@ import '../../Screens/MainScreens/Checkout.dart';
 import '../../utils/models/Products.dart';
 
 class PageRoutes {
-  // Define todas as rotas do aplicativo como constantes
   static const String onboarding = '/';
   static const String login = '/login';
   static const String cadastro = '/cadastro';
   static const String catalogo = '/catalogo';
   static const String cart = '/cart';
   static const String checkout = '/checkout';
-  static const String publicacoes = '/publicacoes';
-  static const String definicoes = '/definicoes';
   static const String historico = '/historico';
   static const String config = '/configuracao';
 
-  // Método para gerar a rota baseada no nome
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case config:
@@ -36,34 +31,50 @@ class PageRoutes {
       case cart:
         return MaterialPageRoute(builder: (_) => CartScreen());
       case historico:
-        return MaterialPageRoute(builder: (_) => HistoricoComprasScreen() );
+        return MaterialPageRoute(builder: (_) => HistoricoComprasScreen());
       case checkout:
-      // Verifica se os argumentos passados são uma lista de produtos
         if (settings.arguments is List<Product>) {
           final List<Product> cartProducts = settings.arguments as List<Product>;
-          return MaterialPageRoute(builder: (_) => CheckoutScreen(), settings: RouteSettings(arguments: cartProducts));
+          return MaterialPageRoute(
+            builder: (_) => CheckoutScreen(),
+            settings: RouteSettings(arguments: cartProducts),
+          );
         } else {
-          return _errorRoute();
+          return _errorRoute(settings.name);
         }
-      case publicacoes:
-      // return MaterialPageRoute(builder: (_) => PublicacoesScreen());
-      case definicoes:
-      // return MaterialPageRoute(builder: (_) => DefinicoesScreen());
       default:
-        return _errorRoute();
+        return _errorRoute(settings.name);
     }
   }
 
-  static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute(
-      builder: (_) => Scaffold(
-        appBar: AppBar(
-          title: Text('Erro'),
-        ),
-        body: Center(
-          child: Text('Rota não encontrada!'),
-        ),
-      ),
-    );
+  static Route<dynamic> _errorRoute(String? currentRoute) {
+    if (currentRoute == login) {
+      return MaterialPageRoute(builder: (context) {
+        return AlertDialog(
+          title: Text('Sair do App?'),
+          content: Text('Deseja realmente sair do aplicativo?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o diálogo
+              },
+              child: Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o diálogo
+                // Implementar a lógica para sair do aplicativo
+                // Exemplo: SystemNavigator.pop();
+              },
+              child: Text('Sair'),
+            ),
+          ],
+        );
+      });
+    } else {
+      return MaterialPageRoute(
+        builder: (_) => CatalogoScreen(),
+      );
+    }
   }
 }

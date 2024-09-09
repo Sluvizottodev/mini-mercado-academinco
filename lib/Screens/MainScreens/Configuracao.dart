@@ -19,6 +19,12 @@ class TelaConfiguracao extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Configurações'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/catalogo');
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
@@ -36,7 +42,7 @@ class TelaConfiguracao extends StatelessWidget {
             title: Text('Perfil'),
             onTap: () {
               // Navega para a tela de perfil
-              //Navigator.of(context).pushNamed('/perfil');
+              // Navigator.of(context).pushNamed('/perfil');
             },
           ),
           Divider(),
@@ -45,7 +51,7 @@ class TelaConfiguracao extends StatelessWidget {
             title: Text('Notificações'),
             onTap: () {
               // Navega para a tela de notificações
-              //Navigator.of(context).pushNamed('/notificacoes');
+              // Navigator.of(context).pushNamed('/notificacoes');
             },
           ),
           Divider(),
@@ -54,7 +60,7 @@ class TelaConfiguracao extends StatelessWidget {
             title: Text('Privacidade'),
             onTap: () {
               // Navega para a tela de privacidade
-              //Navigator.of(context).pushNamed('/privacidade');
+              // Navigator.of(context).pushNamed('/privacidade');
             },
           ),
           Divider(),
@@ -63,7 +69,7 @@ class TelaConfiguracao extends StatelessWidget {
             title: Text('Ajuda'),
             onTap: () {
               // Navega para a tela de ajuda
-              //Navigator.of(context).pushNamed('/ajuda');
+              // Navigator.of(context).pushNamed('/ajuda');
             },
           ),
         ],

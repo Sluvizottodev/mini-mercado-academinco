@@ -5,6 +5,7 @@ import 'package:minimercado/utils/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../utils/componentes/CustomAppBar.dart';
 import '../../utils/componentes/InfAppBar.dart';
+import '../../utils/constants/routes.dart'; // Certifique-se de importar suas rotas
 
 class HistoricoComprasScreen extends StatefulWidget {
   @override
@@ -103,38 +104,65 @@ class _HistoricoComprasScreenState extends State<HistoricoComprasScreen> {
                     ),
                   ),
                 ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                      final compra = _historicoCompras[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Card(
-                          child: ListTile(
-                            title: Text(
-                              'Compra em ${compra['data']}',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: TColors.primaryColor,
+                if (_historicoCompras.isNotEmpty)
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                        final compra = _historicoCompras[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Card(
+                            child: ListTile(
+                              title: Text(
+                                'Compra em ${compra['data']}',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: TColors.primaryColor,
+                                ),
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 8),
+                                  Text('Total: R\$ ${compra['total']}'),
+                                  SizedBox(height: 8),
+                                  Text('Itens: ${compra['itens'].join(', ')}'),
+                                ],
                               ),
                             ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 8),
-                                Text('Total: R\$ ${compra['total']}'),
-                                SizedBox(height: 8),
-                                Text('Itens: ${compra['itens'].join(', ')}'),
-                              ],
-                            ),
                           ),
-                        ),
-                      );
-                    },
-                    childCount: _historicoCompras.length,
+                        );
+                      },
+                      childCount: _historicoCompras.length,
+                    ),
+                  )
+                else
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Sem compras anteriores, faça sua primeira compra.',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: TColors.primaryColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(PageRoutes.catalogo);
+                            },
+                            child: Text('Ir para o Catálogo'),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
                 SliverToBoxAdapter(
                   child: SizedBox(height: kToolbarHeight),
                 ),

@@ -9,6 +9,7 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final TextEditingController _locationController = TextEditingController();
   double deliveryFee = 0.0;
+  String paymentMethod = ''; // Método de pagamento escolhido
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +48,42 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               decoration: InputDecoration(labelText: 'Insira sua localização'),
             ),
             SizedBox(height: 20),
+            Text('Forma de Pagamento', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ListTile(
+              title: const Text('Cartão'),
+              leading: Radio<String>(
+                value: 'Cartão',
+                groupValue: paymentMethod,
+                onChanged: (String? value) {
+                  setState(() {
+                    paymentMethod = value!;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text('Dinheiro'),
+              leading: Radio<String>(
+                value: 'Dinheiro',
+                groupValue: paymentMethod,
+                onChanged: (String? value) {
+                  setState(() {
+                    paymentMethod = value!;
+                  });
+                },
+              ),
+            ),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 String location = _locationController.text.trim();
                 if (location.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Por favor, insira uma localização.')));
+                  return;
+                }
+
+                if (paymentMethod.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Por favor, selecione a forma de pagamento.')));
                   return;
                 }
 
@@ -62,7 +94,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     context: context,
                     builder: (ctx) => AlertDialog(
                       title: Text('Pagamento'),
-                      content: Text('Pagamento realizado com sucesso! Total com entrega: R\$ ${totalWithDelivery.toStringAsFixed(2)}'),
+                      content: Text('Pagamento presencial em $paymentMethod. Total com entrega: R\$ ${totalWithDelivery.toStringAsFixed(2)}'),
                       actions: [
                         TextButton(
                           onPressed: () {
