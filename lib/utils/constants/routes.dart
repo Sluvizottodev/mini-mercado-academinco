@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:minimercado/Screens/MainScreens/Configuracao.dart';
+import 'package:minimercado/Screens/MainScreens/Historico.dart';
 
 import '../../Screens/HomeScreens/Cadastro.dart';
 import '../../Screens/HomeScreens/Login.dart';
 import '../../Screens/MainScreens/Cart.dart';
 import '../../Screens/MainScreens/Catalogo.dart';
 import '../../Screens/MainScreens/Checkout.dart';
+import '../../utils/models/Products.dart';
 
 class PageRoutes {
   // Define todas as rotas do aplicativo como constantes
@@ -16,10 +19,14 @@ class PageRoutes {
   static const String checkout = '/checkout';
   static const String publicacoes = '/publicacoes';
   static const String definicoes = '/definicoes';
+  static const String historico = '/historico';
+  static const String config = '/configuracao';
 
   // Método para gerar a rota baseada no nome
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case config:
+        return MaterialPageRoute(builder: (_) => TelaConfiguracao());
       case login:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case cadastro:
@@ -28,15 +35,35 @@ class PageRoutes {
         return MaterialPageRoute(builder: (_) => CatalogoScreen());
       case cart:
         return MaterialPageRoute(builder: (_) => CartScreen());
+      case historico:
+        return MaterialPageRoute(builder: (_) => HistoricoComprasScreen() );
       case checkout:
-        return MaterialPageRoute(builder: (_) => CheckoutScreen());
+      // Verifica se os argumentos passados são uma lista de produtos
+        if (settings.arguments is List<Product>) {
+          final List<Product> cartProducts = settings.arguments as List<Product>;
+          return MaterialPageRoute(builder: (_) => CheckoutScreen(), settings: RouteSettings(arguments: cartProducts));
+        } else {
+          return _errorRoute();
+        }
       case publicacoes:
       // return MaterialPageRoute(builder: (_) => PublicacoesScreen());
       case definicoes:
       // return MaterialPageRoute(builder: (_) => DefinicoesScreen());
       default:
-      // Retorna um erro ou um Container vazio se a rota não for encontrada
-        return MaterialPageRoute(builder: (_) => Container());
+        return _errorRoute();
     }
+  }
+
+  static Route<dynamic> _errorRoute() {
+    return MaterialPageRoute(
+      builder: (_) => Scaffold(
+        appBar: AppBar(
+          title: Text('Erro'),
+        ),
+        body: Center(
+          child: Text('Rota não encontrada!'),
+        ),
+      ),
+    );
   }
 }

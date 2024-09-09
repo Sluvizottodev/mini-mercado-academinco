@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:minimercado/utils/constants/colors.dart';
-import '../../utils/componentes/CustomAppBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../utils/componentes/CustomAppBar.dart';
 import '../../utils/componentes/InfAppBar.dart';
 import '../../utils/models/Products.dart';
 
@@ -13,14 +13,13 @@ class CatalogoScreen extends StatefulWidget {
 }
 
 class _CatalogoScreenState extends State<CatalogoScreen> {
-  final List<String> items = List.generate(20, (index) => 'Item $index');
   final List<Map<String, String>> topics = [
-    {'name': 'Frutas', 'image': 'lib/utils/images/logo_branca.png'},
-    {'name': 'Legumes', 'image': 'lib/utils/images/logo_branca.png'},
-    {'name': 'Carnes', 'image': 'lib/utils/images/logo_branca.png'},
-    {'name': 'Laticínios', 'image': 'lib/utils/images/logo_branca.png'},
-    {'name': 'Bebidas', 'image': 'lib/utils/images/logo_branca.png'},
-    {'name': 'Higiene', 'image': 'lib/utils/images/logo_branca.png'},
+    {'name': 'Frutas', 'image': 'lib/utils/images/categories/frutas.png'},
+    {'name': 'Legumes', 'image': 'lib/utils/images/categories/legumes.png'},
+    {'name': 'Carnes', 'image': 'lib/utils/images/categories/carnes.png'},
+    {'name': 'Laticínios', 'image': 'lib/utils/images/categories/laticinios.png'},
+    {'name': 'Bebidas', 'image': 'lib/utils/images/categories/bebidas.png'},
+    {'name': 'Higiene', 'image': 'lib/utils/images/categories/higiene.png'},
   ];
 
   String nome = '';
@@ -51,21 +50,60 @@ class _CatalogoScreenState extends State<CatalogoScreen> {
     return s[0].toUpperCase() + s.substring(1);
   }
 
-  void _addToCart(Product product) {
+  Future<void> _addToCart(Product product) async {
     setState(() {
-      _cart.add(product);
+      // Verifica se o produto já está no carrinho e atualiza a quantidade ou adiciona um novo produto
+      final existingProductIndex = _cart.indexWhere((item) => item.id == product.id);
+      if (existingProductIndex >= 0) {
+        _cart[existingProductIndex].quantity += 1; // Aumenta a quantidade
+      } else {
+        _cart.add(product.copyWith(quantity: 1)); // Adiciona novo produto com quantidade 1
+      }
     });
-    // Redireciona para a tela do carrinho
-    Navigator.pushNamed(context, '/cart', arguments: {
-      'cart': _cart,
-      'removeFromCart': _removeFromCart,
-    });
+
+    await _saveProductToCart(product);
+    _showCartAlert(product);
   }
 
-  void _removeFromCart(Product product) {
-    setState(() {
-      _cart.remove(product);
-    });
+  Future<void> _saveProductToCart(Product product) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await FirebaseFirestore.instance.collection('cart').add({
+        'productId': product.id,
+        'title': product.title,
+        'price': product.price,
+        'imageUrl': product.imageUrl,
+        'userId': user.uid,  // Adicione o uid do usuário
+      });
+    }
+  }
+
+  Future<void> _showCartAlert(Product product) async {
+    bool? goToCart = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Produto adicionado'),
+          content: Text('O produto ${product.title} foi adicionado ao carrinho. Deseja ir para o carrinho agora?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('Continuar comprando'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text('Ir para o carrinho'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (goToCart == true) {
+      Navigator.pushNamed(context, '/cart', arguments: {
+        'cart': _cart,
+      });
+    }
   }
 
   @override
@@ -76,6 +114,7 @@ class _CatalogoScreenState extends State<CatalogoScreen> {
         return sair ?? false;
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: CustomAppBar(),
         body: Stack(
           children: [
@@ -161,8 +200,8 @@ class _CatalogoScreenState extends State<CatalogoScreen> {
                   ),
                   delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
-                      final product = products[index];
-                      return ProductItem(product, _addToCart);
+                      final product = products[index]; // Certifique-se de que 'products' está definido
+                      return ProductItem(product, _addToCart); // Chamada correta para o item do produto
                     },
                     childCount: products.length,
                   ),

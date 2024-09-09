@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             icon: Icon(Icons.history, color: Colors.white ,  size: 25,),
             onPressed: () {
               // Navegar para a tela de histórico de compras
-              Navigator.pushNamed(context, '/historicoCompras'); // Substitua pela sua rota
+              Navigator.pushNamed(context, '/historico'); // Substitua pela sua rota
             },
           ),
           // Logo centralizada

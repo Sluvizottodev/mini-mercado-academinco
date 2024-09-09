@@ -92,8 +92,9 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 decoration: InputDecoration(
                   labelText: 'Nome',
                   border: OutlineInputBorder(),
+                  counterText: '', // Oculta o contador de caracteres
                 ),
-                maxLength: 30, // Limite de caracteres para o nome
+                maxLength: 15, // Limite de caracteres para o nome
               ),
               SizedBox(height: 20.0),
               TextField(

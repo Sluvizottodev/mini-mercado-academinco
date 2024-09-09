@@ -20,7 +20,7 @@ class InfAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.white, // Cor branca para o ícone
             iconSize: 30,
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/gerenciamento');
+              //Navigator.pushReplacementNamed(context, '/gerenciamento');
             },
           ),
         ),
@@ -30,11 +30,11 @@ class InfAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Container(
             alignment: Alignment.center,
             child: IconButton(
-              icon: Icon(Icons.article),
+              icon: Icon(Icons.home_filled),
               color: Colors.white, // Cor branca para o ícone
               iconSize: 30,
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/publicacoes');
+                Navigator.pushReplacementNamed(context, '/catalogo');
               },
             ),
           ),
@@ -48,7 +48,7 @@ class InfAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.white, // Cor branca para o ícone
             iconSize: 30,
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/definicoes');
+              Navigator.pushReplacementNamed(context, '/configuracao');
             },
           ),
         ),
