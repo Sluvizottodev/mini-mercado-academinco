@@ -16,7 +16,7 @@ class InfAppBar extends StatelessWidget implements PreferredSizeWidget {
         Container(
           padding: EdgeInsets.only(left: 50.0), // Espaçamento à esquerda
           child: IconButton(
-            icon: Icon(Icons.manage_accounts),
+            icon: Icon(Icons.search),
             color: Colors.white, // Cor branca para o ícone
             iconSize: 30,
             onPressed: () {

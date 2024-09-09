@@ -148,7 +148,7 @@ class _HistoricoComprasScreenState extends State<HistoricoComprasScreen> {
                             'Sem compras anteriores, faça sua primeira compra.',
                             style: TextStyle(
                               fontSize: 18,
-                              color: TColors.primaryColor,
+                              color: TColors.textPrimary,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -157,7 +157,11 @@ class _HistoricoComprasScreenState extends State<HistoricoComprasScreen> {
                             onPressed: () {
                               Navigator.of(context).pushNamed(PageRoutes.catalogo);
                             },
-                            child: Text('Ir para o Catálogo'),
+                            child: Text('Ir para o Catálogo', style: TextStyle(
+                              fontSize: 18,
+                              color: TColors.primaryColor,
+                            ),
+                              textAlign: TextAlign.center,),
                           ),
                         ],
                       ),

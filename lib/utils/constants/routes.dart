@@ -5,7 +5,7 @@ import '../../Screens/HomeScreens/Cadastro.dart';
 import '../../Screens/HomeScreens/Login.dart';
 import '../../Screens/MainScreens/Cart.dart';
 import '../../Screens/MainScreens/Catalogo.dart';
-import '../../Screens/MainScreens/Checkout.dart';
+import '../../Screens/MainScreens/Checkout.dart'; // Importando CheckoutScreen
 import '../../utils/models/Products.dart';
 
 class PageRoutes {
@@ -33,15 +33,9 @@ class PageRoutes {
       case historico:
         return MaterialPageRoute(builder: (_) => HistoricoComprasScreen());
       case checkout:
-        if (settings.arguments is List<Product>) {
-          final List<Product> cartProducts = settings.arguments as List<Product>;
-          return MaterialPageRoute(
-            builder: (_) => CheckoutScreen(),
-            settings: RouteSettings(arguments: cartProducts),
-          );
-        } else {
-          return _errorRoute(settings.name);
-        }
+        return MaterialPageRoute(
+          builder: (_) => CheckoutScreen(), // Chama a CheckoutScreen
+        );
       default:
         return _errorRoute(settings.name);
     }
