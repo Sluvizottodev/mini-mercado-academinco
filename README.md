@@ -1,45 +1,41 @@
-# Mini Mercado Academinco
+# Mini Mercado Acadêmico 
+(Aplicação Mobile)
 
-![Logo](link_para_logo_se_existir)
+![Logo](https://phygital-files.mercafacil.com/padaria-superpao/uploads/empresa/logo_5ab073ad-cce2-4c63-9ad7-42f17a830f65.png)
 
-Projeto acadêmico em grupo visando o desenvolvimento de um mercado digital simples, inspirado no supermercado SuperPão.
+Projeto acadêmico colaborativo com o objetivo de desenvolver um mercado digital simples, inspirado no supermercado SuperPão. Este projeto foca no aprendizado prático de desenvolvimento de aplicações web usando tecnologias modernas.
 
 ## Índice
 
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Funcionalidades](#funcionalidades)
-- [Capturas de Tela](#capturas-de-tela)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Como Rodar o Projeto](#como-rodar-o-projeto)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
+- [Dowload](#dowload)
 
 ## Sobre o Projeto
 
-O Mini Mercado Academinco é um projeto acadêmico desenvolvido para simular o funcionamento de um mercado digital. O objetivo é proporcionar uma experiência prática em desenvolvimento de aplicações web utilizando tecnologias modernas.
+O **Mini Mercado Acadêmico** é uma aplicação web desenvolvida como parte de um projeto acadêmico, com o propósito de simular o funcionamento de um mercado online. O projeto oferece uma oportunidade de aprendizado colaborativo, proporcionando experiência prática com tecnologias como Flutter, Dart e Firebase.
 
 ## Funcionalidades
 
 - Cadastro e login de usuários
-- Listagem de produtos
-- Adição de produtos ao carrinho de compras
-- Finalização de compra
-
-## Capturas de Tela
-
-<!-- Adicione capturas de tela do seu projeto aqui -->
-![Tela Inicial](link_para_captura_de_tela)
+- Navegação e listagem de produtos
+- Finalização de compra com simulação de pagamento
 
 ## Tecnologias Utilizadas
 
-- [Flutter](https://flutter.org/)
-- [Dart](https://dart.org/)
-- [Firebase](https://firebase.com/)
+- [Flutter](https://flutter.dev/)
+- [Dart](https://dart.dev/)
+- [Firebase](https://firebase.google.com/)
 
 ## Como Rodar o Projeto
 
-Para rodar o projeto localmente, siga os passos abaixo:
+Para executar o projeto localmente, siga os seguintes passos:
 
 1. Clone o repositório:
    ```bash
    git clone https://github.com/Sluvizottodev/mini-mercado-academinco.git
+
+## Dowload
+[Baixar APK - MOBILE] (https://cefetrjbr-my.sharepoint.com/:u:/g/personal/17672820796_cefet-rj_br/EcLDxdxofPNJqXbtzpkoUQkBB1PjCCMmouNRGpdA5dC0bQ?e=wDdFjL)
