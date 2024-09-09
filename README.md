@@ -1,7 +1,8 @@
 # Mini Mercado Acadêmico 
 (Aplicação Mobile)
 
-![Logo](https://phygital-files.mercafacil.com/padaria-superpao/uploads/empresa/logo_5ab073ad-cce2-4c63-9ad7-42f17a830f65.png)
+![Logo](https://github.com/user-attachments/assets/c6771a8b-9c00-405d-a40a-28afbb28cf47)
+
 
 Projeto acadêmico colaborativo com o objetivo de desenvolver um mercado digital simples, inspirado no supermercado SuperPão. Este projeto foca no aprendizado prático de desenvolvimento de aplicações web usando tecnologias modernas.
 
@@ -11,7 +12,6 @@ Projeto acadêmico colaborativo com o objetivo de desenvolver um mercado digital
 - [Funcionalidades](#funcionalidades)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Como Rodar o Projeto](#como-rodar-o-projeto)
-- [Dowload](#dowload)
 
 ## Sobre o Projeto
 
@@ -36,6 +36,3 @@ Para executar o projeto localmente, siga os seguintes passos:
 1. Clone o repositório:
    ```bash
    git clone https://github.com/Sluvizottodev/mini-mercado-academinco.git
-
-## Dowload
-[Baixar APK - MOBILE] (https://cefetrjbr-my.sharepoint.com/:u:/g/personal/17672820796_cefet-rj_br/EcLDxdxofPNJqXbtzpkoUQkBB1PjCCMmouNRGpdA5dC0bQ?e=wDdFjL)
