@@ -14,6 +14,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   double _taxaEntrega = 15.0; // Taxa fixa para Nova Friburgo
   String _rua = '';
   String _numeroCasa = '';
+  List<Map<String, dynamic>> _cart = []; // Carrinho inicializado como vazio
 
   final List<String> _bairrosNovaFriburgo = [
     'Centro',
@@ -32,17 +33,39 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     // Adicione mais bairros conforme necessário
   ];
 
-  final List<Map<String, dynamic>> _itensCarrinho = [
-    {'id': '1', 'nome': 'Maçã', 'preco': 1.50, 'quantity': 2},
-    {'id': '2', 'nome': 'Alface', 'preco': 0.80, 'quantity': 1},
-  ];
+  final TextEditingController _cidadeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _cidadeController.text = _cidade; // Define a cidade no controller
+  }
 
   double get _totalCarrinho {
-    double total = _itensCarrinho.fold(0.0, (sum, item) => sum + (item['preco'] * item['quantity']));
+    double total = _cart.fold(0.0, (sum, item) => sum + (item['preco'] * item['quantity']));
     return total + _taxaEntrega;
   }
 
   void _finalizarCompra() {
+    if (_rua.isEmpty || _numeroCasa.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Campos obrigatórios'),
+          content: Text('Por favor, preencha todos os campos obrigatórios (Rua e Número).'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return; // Retorna para não continuar com a compra
+    }
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -69,15 +92,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         backgroundColor: TColors.primaryColor,
         automaticallyImplyLeading: false, // Remove a seta de retorno
       ),
-      body: SingleChildScrollView( // Adiciona scroll se necessário
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Localização', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             TextField(
-              enabled: false, // Desabilita o campo da cidade
-              controller: TextEditingController(text: _cidade), // Define cidade como Nova Friburgo
+              enabled: false,
+              controller: _cidadeController,
               decoration: InputDecoration(labelText: 'Cidade'),
             ),
             DropdownButtonFormField<String>(
@@ -91,11 +114,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               }).toList(),
               onChanged: (value) {
                 setState(() {
-                  _bairro = value; // Sem necessidade de null check aqui
+                  _bairro = value;
                 });
               },
             ),
-            Row( // Usando Row para colocar Rua e Número da Casa na mesma linha
+            Row(
               children: [
                 Expanded(
                   child: TextField(
@@ -107,9 +130,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     decoration: InputDecoration(labelText: 'Rua'),
                   ),
                 ),
-                SizedBox(width: 10), // Espaçamento entre os campos
+                SizedBox(width: 10),
                 Container(
-                  width: 80, // Largura fixa para o número da casa
+                  width: 80,
                   child: TextField(
                     onChanged: (value) {
                       setState(() {
@@ -145,39 +168,24 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               },
             ),
             SizedBox(height: 20),
-            Text('Itens no Carrinho', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(), // Desabilita rolagem do ListView
-              itemCount: _itensCarrinho.length,
-              itemBuilder: (context, index) {
-                final item = _itensCarrinho[index];
-                return ListTile(
-                  title: Text('${item['nome']} (x${item['quantity']})'),
-                  subtitle: Text('R\$ ${NumberFormat('#,##0.00', 'pt_BR').format(item['preco'] * item['quantity'])}'),
-                );
-              },
-            ),
             SizedBox(height: 10),
             Text('Taxa de Entrega: R\$ ${NumberFormat('#,##0.00', 'pt_BR').format(_taxaEntrega)}',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 10),
-            Text('Total: R\$ ${NumberFormat('#,##0.00', 'pt_BR').format(_totalCarrinho)}',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 20),
             SizedBox(
-              width: double.infinity, // Estende o botão por toda a largura da tela
+              width: double.infinity,
               child: ElevatedButton(
                 onPressed: _finalizarCompra,
                 child: Text('Confirmar Compra'),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: TColors.primaryColor,
+                  foregroundColor: TColors.primaryColor,
+                  backgroundColor: Colors.white,
                   padding: EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  textStyle: TextStyle(fontSize: 18), // Aumenta o tamanho do texto
+                  elevation: 5,
                 ),
               ),
             ),

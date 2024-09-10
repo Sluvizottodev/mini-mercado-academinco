@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../utils/constants/colors.dart';
-import '../../utils/models/Products.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -20,18 +21,25 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Future<void> _loadCart() async {
-    _cart = [
-      {'id': '1', 'quantity': 2},
-      {'id': '3', 'quantity': 1},
-    ];
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      QuerySnapshot cartSnapshot = await FirebaseFirestore.instance
+          .collection('cart')
+          .where('userId', isEqualTo: user.uid)
+          .get();
 
-    for (var item in _cart) {
-      final product = products.firstWhere((prod) => prod.id == item['id']);
-      item['title'] = product.title;
-      item['price'] = product.price;
-      item['imageUrl'] = product.imageUrl;
+      _cart.clear(); // Clear the cart before loading items
+      for (var doc in cartSnapshot.docs) {
+        Map<String, dynamic> item = doc.data() as Map<String, dynamic>;
+        _cart.add({
+          'id': item['productId'],
+          'title': item['title'],
+          'price': item['price'],
+          'imageUrl': item['imageUrl'],
+          'quantity': item['quantity'] ?? 1 // Use quantity from Firestore
+        });
+      }
     }
-
     _calculateTotalAmount();
     setState(() {
       _isLoading = false;
@@ -39,44 +47,36 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void _calculateTotalAmount() {
-    setState(() {
-      _totalAmount = _cart.fold(0.0, (sum, item) => sum + (item['price'] * item['quantity']));
-    });
+    _totalAmount = _cart.fold(0.0, (sum, item) => sum + (item['price'] * item['quantity']));
   }
 
   void _updateQuantity(int index, int delta) {
     setState(() {
       _cart[index]['quantity'] = (_cart[index]['quantity'] + delta).clamp(1, double.infinity).toInt();
-      _calculateTotalAmount();
     });
+    _calculateTotalAmount();
   }
 
-  void _removeFromCart(int index) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('Remover Item'),
-        content: Text('Você tem certeza que deseja remover este item do carrinho?'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-            child: Text('Cancelar'),
-          ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                _cart.removeAt(index);
-                _calculateTotalAmount();
-              });
-              Navigator.of(ctx).pop();
-            },
-            child: Text('Remover'),
-          ),
-        ],
-      ),
-    );
+  Future<void> _removeFromCart(int index) async {
+    final productId = _cart[index]['id'];
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      QuerySnapshot cartSnapshot = await FirebaseFirestore.instance
+          .collection('cart')
+          .where('userId', isEqualTo: user.uid)
+          .where('productId', isEqualTo: productId)
+          .get();
+
+      for (var doc in cartSnapshot.docs) {
+        await doc.reference.delete();
+      }
+
+      setState(() {
+        _cart.removeAt(index);
+      });
+      _calculateTotalAmount();
+    }
   }
 
   @override
@@ -85,8 +85,8 @@ class _CartScreenState extends State<CartScreen> {
       return Scaffold(
         appBar: AppBar(
           title: Text('Carrinho de Compras'),
-          automaticallyImplyLeading: false, // Remove a seta de retorno
-          backgroundColor: TColors.primaryColor, // Cor personalizada
+          automaticallyImplyLeading: false,
+          backgroundColor: TColors.primaryColor,
         ),
         body: Center(child: CircularProgressIndicator()),
       );
@@ -96,8 +96,8 @@ class _CartScreenState extends State<CartScreen> {
       return Scaffold(
         appBar: AppBar(
           title: Text('Carrinho de Compras'),
-          automaticallyImplyLeading: false, // Remove a seta de retorno
-          backgroundColor: TColors.primaryColor, // Cor personalizada
+          automaticallyImplyLeading: false,
+          backgroundColor: TColors.primaryColor,
         ),
         body: Center(
           child: Text('Nenhum item no carrinho'),
@@ -107,7 +107,7 @@ class _CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Carrinho de Compras' , style: TextStyle(color: TColors.textWhite , ),),
+        title: Text('Carrinho de Compras', style: TextStyle(color: TColors.textWhite)),
         automaticallyImplyLeading: false,
         backgroundColor: TColors.primaryColor,
       ),
@@ -154,30 +154,33 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
           Container(
-            width: double.infinity, // Barra inferior ocupando toda a largura da tela
+            width: double.infinity,
             decoration: BoxDecoration(
               color: TColors.primaryColor,
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30), // Ajusta o padding
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch, // Faz o botão ocupar toda a largura
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
                   'Total: ${NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(_totalAmount)}',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-                  textAlign: TextAlign.center, // Centraliza o texto
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/checkout');
+                    Navigator.pushNamed(context, '/checkout', arguments: {
+                      'cart': _cart,
+                      'taxaEntrega': 15.0 // Passando a taxa de entrega
+                    });
                   },
                   child: Text('Finalizar Compra'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: TColors.primaryColor,
                     backgroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(vertical: 15), // Preenche toda a largura disponível
+                    padding: EdgeInsets.symmetric(vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),

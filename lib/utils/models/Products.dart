@@ -198,11 +198,11 @@ Future<List<dynamic>> loadCart() async {
 
 // Produtos de exibição
 List<Product> products = [
-  Product(id: '1', title: 'Maçã', price: 1.50, imageUrl: 'lib/utils/images/maca.png', category: 'Frutas'),
-  Product(id: '2', title: 'Banana', price: 1.20, imageUrl: 'lib/utils/images/banana.png', category: 'Frutas'),
-  Product(id: '3', title: 'Alface', price: 0.80, imageUrl: 'lib/utils/images/alface.png', category: 'Legumes'),
-  Product(id: '4', title: 'Tomate', price: 2.00, imageUrl: 'lib/utils/images/tomate.png', category: 'Legumes'),
-  Product(id: '5', title: 'Frango', price: 10.00, imageUrl: 'lib/utils/images/frango.png', category: 'Carnes'),
-  Product(id: '6', title: 'Carne Bovina', price: 15.00, imageUrl: 'lib/utils/images/carne.png', category: 'Carnes'),
-  Product(id: '7', title: 'Leite', price: 3.50, imageUrl: 'lib/utils/images/leite.png', category: 'Laticínios'),
+  Product(id: '1', title: 'Maçã', price: 3.50, imageUrl: 'lib/utils/images/maca.png', category: 'Frutas'),
+  Product(id: '2', title: 'Banana', price: 4.20, imageUrl: 'lib/utils/images/banana.png', category: 'Frutas'),
+  Product(id: '3', title: 'Alface', price: 1.80, imageUrl: 'lib/utils/images/alface.png', category: 'Legumes'),
+  Product(id: '4', title: 'Tomate', price: 5.20, imageUrl: 'lib/utils/images/tomate.png', category: 'Legumes'),
+  Product(id: '5', title: 'Frango', price: 22.00, imageUrl: 'lib/utils/images/frango.png', category: 'Carnes'),
+  Product(id: '6', title: 'Carne Moída', price: 25.99, imageUrl: 'lib/utils/images/carne.png', category: 'Carnes'),
+  Product(id: '7', title: 'Leite', price: 5.50, imageUrl: 'lib/utils/images/leite.png', category: 'Laticínios'),
 ];

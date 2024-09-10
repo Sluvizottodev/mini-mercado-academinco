@@ -62,7 +62,7 @@ class _CatalogoScreenState extends State<CatalogoScreen> {
     });
 
     await _saveProductToCart(product);
-    _showCartAlert(product);
+
   }
 
   Future<void> _saveProductToCart(Product product) async {
@@ -78,33 +78,6 @@ class _CatalogoScreenState extends State<CatalogoScreen> {
     }
   }
 
-  Future<void> _showCartAlert(Product product) async {
-    bool? goToCart = await showDialog<bool>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Produto adicionado'),
-          content: Text('O produto ${product.title} foi adicionado ao carrinho. Deseja ir para o carrinho agora?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text('Continuar comprando'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text('Ir para o carrinho'),
-            ),
-          ],
-        );
-      },
-    );
-
-    if (goToCart == true) {
-      Navigator.pushNamed(context, '/cart', arguments: {
-        'cart': _cart,
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
