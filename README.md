@@ -79,7 +79,7 @@ O projeto utiliza uma combinação de tecnologias modernas, tanto para o fronten
 - **Stefani Luvizotto de Souza** 
 - **Jonatas Borges da Silva e Silva** 
 - **Antonio Henrique Gomes Ther**
-- **Gabriel Cruz**
+- **Gabriel de Almeida Martins da Cruz**
 
 ---
 
