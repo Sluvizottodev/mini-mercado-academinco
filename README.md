@@ -1,38 +1,79 @@
-# Mini Mercado Acadêmico 
-(Aplicação Mobile)
+# **Mini Mercado Acadêmico**  
+**Aplicação Mobile**
 
 ![Logo](https://github.com/user-attachments/assets/c6771a8b-9c00-405d-a40a-28afbb28cf47)
 
+Projeto acadêmico colaborativo para o desenvolvimento de um **mini mercado digital**, inspirado no supermercado **SuperPão**. O objetivo principal é oferecer uma plataforma simples para simular a experiência de compra online, focando no aprendizado prático de tecnologias modernas de desenvolvimento mobile, utilizando Flutter, Dart e Firebase.
 
-Projeto acadêmico colaborativo com o objetivo de desenvolver um mercado digital simples, inspirado no supermercado SuperPão. Este projeto foca no aprendizado prático de desenvolvimento de aplicações web usando tecnologias modernas.
+---
 
-## Índice
+## **Índice**
 
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Funcionalidades](#funcionalidades)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Como Rodar o Projeto](#como-rodar-o-projeto)
+1. [Sobre o Projeto](#sobre-o-projeto)  
+2. [Funcionalidades](#funcionalidades)  
+3. [Arquitetura e Design](#arquitetura-e-design)  
+4. [Tecnologias Utilizadas](#tecnologias-utilizadas)  
+5. [Pré-requisitos e Configuração](#pre-requisitos-e-configuração)  
+6. [Clone o repositório](#clone-o-repositorio)  
 
-## Sobre o Projeto
 
-O **Mini Mercado Acadêmico** é uma aplicação web desenvolvida como parte de um projeto acadêmico, com o propósito de simular o funcionamento de um mercado online. O projeto oferece uma oportunidade de aprendizado colaborativo, proporcionando experiência prática com tecnologias como Flutter, Dart e Firebase.
+---
 
-## Funcionalidades
+## **Sobre o Projeto**
 
-- Cadastro e login de usuários
-- Navegação e listagem de produtos
-- Finalização de compra com simulação de pagamento
+O **Mini Mercado Acadêmico** é um aplicativo mobile desenvolvido como parte de um projeto acadêmico, visando proporcionar uma simulação realista de um mercado online. O objetivo é permitir que os usuários naveguem entre produtos, realizem compras e finalizem suas transações de maneira intuitiva e simples.
 
-## Tecnologias Utilizadas
+O projeto é uma excelente oportunidade para os desenvolvedores trabalharem em um ambiente colaborativo e colocarem em prática habilidades essenciais no desenvolvimento de aplicações modernas, como integração com serviços de backend em tempo real e a construção de uma interface fluida e responsiva para usuários móveis.
 
-- [Flutter](https://flutter.dev/)
-- [Dart](https://dart.dev/)
-- [Firebase](https://firebase.google.com/)
+---
 
-## Como Rodar o Projeto
+## **Funcionalidades**
 
-Para executar o projeto localmente, siga os seguintes passos:
+### **Funcionalidades Principais**
 
-1. Clone o repositório:
+- **Autenticação de Usuários**:  
+  Permite que novos usuários se cadastrem e façam login utilizando e-mail e senha. Utiliza Firebase Authentication para gerenciamento de usuários.
+  
+- **Catálogo de Produtos**:  
+  Exibição de uma lista de produtos disponíveis para compra, com filtro por categorias e buscas personalizadas.
+
+- **Carrinho de Compras**:  
+  Adição de produtos ao carrinho, com opções para modificar quantidades ou remover itens.
+
+- **Finalização de Compra**:  
+  Simulação de checkout, com formas de pagamento como "Dinheiro" ou "Cartão de Crédito". 
+
+- **Simulação de Taxa de Entrega**:  
+  A aplicação calcula a taxa de entrega com base no endereço selecionado pelo usuário (bairro e cidade pré-definidos).
+
+- **Histórico de Compras**:  
+  Possibilidade de o usuário visualizar pedidos anteriores.
+
+- **Persistência de Dados**: A base de dados utiliza o **Firebase Firestore** para armazenar informações de produtos, pedidos e usuários em tempo real.
+
+---
+
+## **Tecnologias Utilizadas**
+
+O projeto utiliza uma combinação de tecnologias modernas, tanto para o frontend quanto para o backend:
+
+- **[Flutter](https://flutter.dev/)**: Framework para desenvolvimento mobile multiplataforma (Android/iOS).
+- **[Dart](https://dart.dev/)**: Linguagem de programação utilizada pelo Flutter, ideal para desenvolvimento de interfaces modernas.
+- **[Firebase Authentication](https://firebase.google.com/products/auth)**: Para autenticação de usuários.
+- **[Firebase Firestore](https://firebase.google.com/products/firestore)**: Banco de dados NoSQL para armazenamento em tempo real.
+
+---
+
+## **Pré-requisitos e Configuração**
+
+### **Pré-requisitos**
+- **Flutter** 3.22.2
+- **Dart** 3.4.3
+- **Firebase CLI** configurado na máquina local
+- **Android Studio** ou **Visual Studio Code** com extensões do Flutter
+
+
+## **Clone o repositório**:
    ```bash
-   git clone https://github.com/Sluvizottodev/mini-mercado-academinco.git
+   git clone https://github.com/Sluvizottodev/mini-mercado-academico.git
+
