@@ -14,8 +14,7 @@ Projeto acadêmico colaborativo para o desenvolvimento de um **mini mercado digi
 3. [Arquitetura e Design](#arquitetura-e-design)  
 4. [Tecnologias Utilizadas](#tecnologias-utilizadas)  
 5. [Pré-requisitos e Configuração](#pre-requisitos-e-configuração)  
-6. [Integrantes do Grupo](#integrantes-do-grupo)  
-7. [Clone o repositório](#clone-o-repositorio)  
+6. [Clone o repositório](#clone-o-repositorio)  
 
 ---
 
@@ -71,15 +70,6 @@ O projeto utiliza uma combinação de tecnologias modernas, tanto para o fronten
 - **Dart** 3.4.3
 - **Firebase CLI** configurado na máquina local
 - **Android Studio** ou **Visual Studio Code** com extensões do Flutter
-
----
-
-## **Integrantes do Grupo**
-
-- **Stefani Luvizotto de Souza** 
-- **Jonatas Borges da Silva e Silva** 
-- **Antonio Henrique Gomes Ther**
-- **Gabriel de Almeida Martins da Cruz**
 
 ---
 
