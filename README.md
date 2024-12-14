@@ -11,10 +11,9 @@ Projeto acadêmico colaborativo para o desenvolvimento de um **mini mercado digi
 
 1. [Sobre o Projeto](#sobre-o-projeto)  
 2. [Funcionalidades](#funcionalidades)  
-3. [Arquitetura e Design](#arquitetura-e-design)  
-4. [Tecnologias Utilizadas](#tecnologias-utilizadas)  
-5. [Pré-requisitos e Configuração](#pre-requisitos-e-configuração)  
-6. [Clone o repositório](#clone-o-repositorio)  
+3. [Tecnologias Utilizadas](#tecnologias-utilizadas)  
+4. [Pré-requisitos e Configuração](#pre-requisitos-e-configuração)  
+5. [Clone o repositório](#clone-o-repositorio)  
 
 ---
 
